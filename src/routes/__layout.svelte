@@ -1,45 +1,25 @@
-<script lang="ts">
-	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
-</script>
+<nav>
+  <ul>
+    <li>
+      <a href="/">홈</a>
+    </li>
+    <li>
+      <a href="/quiz">게임하기</a>
+    </li>
+    <li>
+      <a href="/contract">만든이</a>
+    </li>
+  </ul>
+</nav>
 
-<Header />
-
-<main>
-	<slot />
-</main>
-
-<footer>
-	<p>Powered by Starworld</p>
-</footer>
+<slot/>
 
 <style>
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
+  ul {
+    display: flex;
+    list-style: none;
+  }
+  li {
+    margin-right: 10px;
+  }
 </style>

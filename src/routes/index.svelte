@@ -1,59 +1,43 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
-<script lang="ts">
-	import Counter from '$lib/Counter.svelte';
+<script>
+  import {goto} from '$app/navigation'
+  import {scoreList} from '$lib/store.js'
 </script>
 
 <svelte:head>
-	<title>Home</title>
+  <title>Brain Color</title>
 </svelte:head>
 
-<section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
+<h1 style="text-align:center">두뇌 개발 게임</h1>
 
-		to your new<br />SvelteKit app
-	</h1>
+<h3 style="text-align:center">이번 주의 점수</h3>
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <th>NO</th>
+      <th>점수</th>
+      <th>이름</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">==================</td>
+      <td style="text-align: center">==================</td>
+      <td style="text-align: center">==================</td>
+    </tr>
 
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
+    {#each scoreList as item, index}
+      <tr>
+        <td style="text-align: center">{index + 1}</td>
+        <td style="text-align: center">{item.score}</td>
+        <td style="text-align: center">{item.name}</td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+<p style="text-align: center">
+  <button style="width: 100%; height: 60px; font-weight: bold; font-size: 30px;" on:click={() => {
+    goto('/quiz')
+  }}
+  >게임하기</button>
+</p>
