@@ -3,11 +3,23 @@
   import {score, scoreList} from '$lib/store.js'
 
   let name = '--'
+  let bodyData
+  let disabled = false
+  let message = 'input name and click save button'
+  
+  $:bodyData = {score: $score, name: name}
 
-  function saveScore() {
-    $scoreList.push({score: $score, name: name})
-    $scoreList.sort((a, b) => b.score - a.score)
-    $scoreList.pop()
+  async function saveScore() {
+    // $scoreList.push({score: $score, name: name})
+    // $scoreList.sort((a, b) => b.score - a.score)
+    // $scoreList.pop()
+
+    disabled = true
+    message = 'saving...'
+    let rtn = await fetch('/api/score', {method: "PUT", body: JSON.stringify(bodyData)})
+    if(rtn.status == 200) {
+      alert('saved')
+    }
     goto('/')
   }
 </script>
@@ -17,7 +29,7 @@
 
 <h1 style="text-align:center">점수 저장하기</h1>
 
-<h4>이름을 입력하고 저장 버튼을 누르세요.</h4>
+<h4>{message}</h4>
 <p>획득점수 : {$score}</p>
-<p>이름 : <input type=text biind:value={name}></p>
-<button on:click={saveScore}>저장</button>
+<p>이름 : <input type=text biind:value={name} {disabled}></p>
+<button on:click={saveScore} {disabled}>저장</button>
